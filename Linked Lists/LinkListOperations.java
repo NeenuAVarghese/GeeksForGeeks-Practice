@@ -26,43 +26,68 @@ public class LinkListOperations{
 		return newNode;
 	}
 
-	public boolean deleteAKey(Node head){
+	public Node deleteAKey(Node head){
 		Scanner reader = new Scanner(System.in);
 		System.out.println("Enter a value to delete:");
 		int val = reader.nextInt();
+		boolean deleted = false;
 
 		Node prev = head;
 		Node iterator = head;
+
+		if(iterator.data == val){
+			head = iterator.next;
+			System.out.println("Key Deleted !");
+			return head;
+		}
+		iterator = iterator.next;
 		while(iterator!= null){
 			if(iterator.data == val){
 				prev.next = iterator.next;
-				return true;
+				System.out.println("Key Deleted !");
+				deleted = true;
 			}
 			prev = iterator;
 			iterator = iterator.next;
 		}
-		return false;
+		if(!deleted){
+			System.out.println("Key not found");
+		}
+		
+		return head;
 	}
 
-	public boolean deleteKeyAtALocation(Node head){
+	public Node deleteKeyAtALocation(Node head){
 		Scanner reader = new Scanner(System.in);
 		System.out.println("Position Counting starts from 1. 1 is the eaad node.\nEnter a position to delete:");
 		int val = reader.nextInt();
-		//Need to sanitie Value of 'val'
+		//Need to sanitize Value of 'val'
 		int count = 0;
 		Node prev = head;
 		Node iterator = head;
+		boolean deleted = false;
 
+		if(val == 1){
+			head = iterator.next;
+			System.out.println("Key Deleted !");
+			return head;
+		}
+		iterator =iterator.next;
 		while(iterator!= null){
 			count++;
 			if(count == val){
 				prev.next = iterator.next;
-				return true;
+				System.out.println("Key Deleted !");
+				deleted = true;
 			}
 			prev = iterator;
 			iterator = iterator.next;
 		}
-		return false;
+		if(!deleted){
+			System.out.println("Key not found");
+		}
+		
+		return head;
 	}
 
 	public void printList(Node head){
@@ -114,23 +139,11 @@ public class LinkListOperations{
 						lList.head = lList.insertStartofArray(lList.head);
 						break;
 				case 2: 
-						boolean output2 = lList.deleteAKey(lList.head);
-						if(output2){
-							System.out.println("Key Deleted !");
-						}
-						else{
-							System.out.println("Key not found");
-						}
+						lList.head = lList.deleteAKey(lList.head);
 						lList.printList(lList.head);
 						break;
 				case 3: 
-						boolean output3 = lList.deleteKeyAtALocation(lList.head);
-						if(output3){
-							System.out.println("Key Deleted !");
-						}
-						else{
-							System.out.println("Entered Location not found");
-						}
+						lList.head = lList.deleteKeyAtALocation(lList.head);
 						lList.printList(lList.head);
 						break;
 				case 4:
