@@ -37,6 +37,47 @@ public class BinarySearchTree{
 		return nodeVal;
 	}
 
+	public Node minNode(Node nodeVal){
+		while(nodeVal.left != null){
+			nodeVal = nodeVal.left;
+		}
+
+		return nodeVal;
+	}
+
+	public Node deleteFromBST( Node nodeVal, int key){
+		if(nodeVal == null){
+				return nodeVal;
+		}
+		else{
+			if(key < nodeVal.data){
+				nodeVal.left = deleteFromBST(nodeVal.left, key);
+			}
+			else{
+				if(key > nodeVal.data){
+					nodeVal.right = deleteFromBST(nodeVal.right, key);
+				}
+				else{
+					if(nodeVal.left == null){
+						Node temp = nodeVal.right;
+						return temp;
+					}
+					else{
+						if(nodeVal.right == null){
+							Node temp = nodeVal.left;
+							return temp;
+						}
+						
+						Node temp = minNode(nodeVal.right);
+						nodeVal.data = temp.data;
+						nodeVal.right = deleteFromBST(nodeVal.right, temp.data);
+					}
+				}
+			}
+		}
+		return nodeVal;
+	}
+
 	public void printBST(Node printVal){
 
 		if(printVal != null){
@@ -57,11 +98,13 @@ public class BinarySearchTree{
 
 			switch(option){
 				case 1: 
-						System.out.println("Enter a value");
+						System.out.println("Enter a value to insert:");
 						int val = reader.nextInt();
 						bst.root = bst.insertInBST(bst.root, val);
 						break;
-				case 2:
+				case 2: System.out.println("enter a value to delete:");
+						int delVal = reader.nextInt();
+						bst.root = bst.deleteFromBST(bst.root, delVal);
 						break;
 				case 3:
 						bst.printBST(bst.root);
