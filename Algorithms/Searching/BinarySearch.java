@@ -1,29 +1,37 @@
 public class BinarySearch{
+
+	static int binarySearch(int low, int high, int arr[], int val){
+		if(low >= high){
+			return -1;
+		}
+
+		int mid = (low + high - 1)/2;
+		System.out.println(mid);
+		if(arr[mid] == val){
+			return mid + 1; 
+		}
+		if(arr[mid] > val){
+			return binarySearch(low, mid-1, arr, val);
+		}
 	
-	public static int binarySearch(int arr[], int low, int high, int key){
-		int mid = (low + high)/2;
-
-		if(arr[mid] == key) return mid;
-
-		if(arr[mid] > key) return binarySearch(arr, low, mid - 1, key);
-
-		if(arr[mid] < key) return binarySearch(arr, mid + 1 , high, key);
-
-		return -1;
+		return binarySearch(mid+1, high, arr, val);
+		
 	}
 
 	public static void main(String args[]){
 
-		int arr[] = {1,2,3,4,5,6,7,8,9};
+		int[] array = {1,5,8,29,55,69,111,450};
 
-		//Searching for "9"
-		int returnVal = binarySearch(arr, 0 , arr.length, 9);
+		int returnValue = binarySearch(0, array.length - 1, array, 69);
 
-		if(returnVal == -1){
-			System.out.println("Value not found");
+		if(returnValue == -1){
+			System.out.println("Value not Found !");
 		}
 		else{
-			System.out.println("Searched value is at: " + returnVal);
-		}		
-	}
+			System.out.println("Value found at "+ returnValue);
+		}
+
+ 	}
 }
+
+//Complexity O(log n)
